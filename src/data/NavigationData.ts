@@ -1,26 +1,18 @@
 export const NaevigationData = [
   {
-    name: "Sports",
+    name: "Home",
     link: "",
   },
   {
-    name: "Entertainment",
-    link: "",
+    name: "About",
+    link: "/about",
   },
   {
-    name: "Politics",
-    link: "",
+    name: "News",
+    text: "/news",
   },
   {
-    name: "Health",
-    link: "",
-  },
-  {
-    name: "Business",
-    link: "",
-  },
-  {
-    name: "Technology",
-    link: "",
+    name: "Contact Us",
+    text: "/contect",
   },
 ];
