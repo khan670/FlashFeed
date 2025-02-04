@@ -4,11 +4,11 @@ import { IoMdPaper } from "react-icons/io";
 
 const NavigationBar = () => {
   return (
-    <nav className="p-5 border-b bg-white flex items-center gap-7">
+    <nav className="p-5 border-b bg-white justify-between flex items-center gap-7">
       <h1 className="text-xl font-bold text-black flex items-center gap-2 uppercase">
         <IoMdPaper size={20} /> Headlinr
       </h1>
-      <ul className="flex items-center gap-4 mr-auto">
+      <ul className="flex items-center gap-4 ">
         {NaevigationData.map((value, index) => (
           <li
             key={index}

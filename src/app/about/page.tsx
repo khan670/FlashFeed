@@ -1,4 +1,4 @@
-import { query } from "@/api-functions/summarization";
+// import { query } from "@/api-functions/summarization";
 import { AboutData, Commitment } from "@/data/AboutData";
 import React from "react";
 import { IoIosCheckmarkCircle } from "react-icons/io";
@@ -22,7 +22,7 @@ const AboutPage = async () => {
             a wide spectrum of topics.
           </p>
         </div>
-        <div className="grid grid-cols-2 gap-5 mt-5">
+        <div className="grid grid-cols-2 grid-rows-2 gap-5 mt-5">
           <div className="bg-white p-5 border-gray-200 border rounded-md">
             <h1 className="text-lg font-semibold">Our Coverage</h1>
             <ul className="flex gap-3 flex-col mt-3 text-sm text-light-black">

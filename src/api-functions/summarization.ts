@@ -1,9 +1,9 @@
-export async function query(data) {
+export async function query(data: { inputs: string }) {
   const response = await fetch(
     "https://api-inference.huggingface.co/models/facebook/bart-large-cnn",
     {
       headers: {
-        Authorization: "Bearer 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",
+        Authorization: `Bearer ${process.env.HUGGING_FACE_KEY}`,
         "Content-Type": "application/json",
       },
       method: "POST",

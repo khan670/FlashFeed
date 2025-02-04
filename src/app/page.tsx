@@ -1,18 +1,29 @@
+"use client";
+import { getHeadline } from "@/api-functions/newsApi";
+import LatestNews from "@/components/LatestNews";
 import NewsCard from "@/components/NewsCard";
+import TrendingNews from "@/components/TrendingNews";
+import { useQuery } from "@tanstack/react-query";
 import React from "react";
 import { CiTimer } from "react-icons/ci";
 import { IoMdShareAlt } from "react-icons/io";
 
 const HomePage = () => {
+  const { isLoading, data } = useQuery({
+    queryKey: ["headline"],
+    queryFn: getHeadline,
+  });
+  // console.log(data);
+  if (isLoading) return "loading....";
   return (
     <>
       <section className="flex items-start gap-3 px-5 py-3">
         <div className="w-[70%] flex flex-col gap-3">
-          {[1, 2].map((value) => (
+          {data?.articles.slice(0, 3).map((value, index) => (
             <div
-              key={value}
+              key={index}
               style={{
-                backgroundImage: `linear-gradient(to top, rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0) 50%), url("/breakNews.png")`,
+                backgroundImage: `linear-gradient(to top, rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0) 50%), url("${value.urlToImage}")`,
               }}
               className="bg-no-repeat text-white rounded-md flex flex-col justify-end items-start bg-cover p-5 h-80 overflow-hidden"
             >
@@ -20,79 +31,23 @@ const HomePage = () => {
                 Breaking News
               </button>
               <h1 className="text-gray-50 font-semibold text-2xl">
-                Global Leaders Reach Historic Climate Agreement at UN Summit
+                {value.title}
               </h1>
-              <p className="text-sm text-[#E5E7EB] ">
-                World leaders have agreed to unprecedented measures to combat
-                climate change, setting ambitious targets for emission
-                reductions by 2030.
-              </p>
+              <p className="text-sm text-[#E5E7EB] ">{value.description}</p>
             </div>
           ))}
         </div>
         <div className="w-[30%] flex flex-col gap-3">
-          <NewsCard />
-          <NewsCard />
+          {data.articles.slice(4, 6).map((value, index) => (
+            <NewsCard key={index + 2} data={value} />
+          ))}
         </div>
       </section>
       {/* Trending News */}
-      <section className="mt-5 p-5">
-        <h1 className="text-2xl font-semibold ">Trending Now</h1>
-        <div className="grid grid-cols-4 gap-3 mt-5">
-          {[1, 2, 3, 4].map((value) => (
-            <div
-              key={value}
-              className="bg-white rounded-lg overflow-hidden shadow"
-            >
-              <img src="/science.png" alt="" />
-              <div className="p-3 flex  flex-col gap-2">
-                <p className="text-xs font-semibold">Science</p>
-                <h1 className="text-base font-semibold text-black">
-                  Breakthrough in Quantum Computing Promises New Era
-                </h1>
-                <div className="flex items-center justify-between text-sm text-light-black ">
-                  <p className="flex items-center gap-1">
-                    <CiTimer />5 min read
-                  </p>
-                  <p className="flex items-center gap-1">
-                    <IoMdShareAlt />
-                    2.5k shares
-                  </p>
-                </div>
-              </div>
-            </div>
-          ))}
-        </div>
-      </section>
+      <TrendingNews />
+      {/* latest News */}
+      <LatestNews />
       <section className="mt-5 flex gap-3 p-5">
-        <div className="w-[70%] ">
-          <h1 className="text-2xl font-semibold ">Latest News</h1>
-          {[1, 2, 3].map((value) => (
-            <div key={value} className="flex mt-4 bg-white p-3 rounded-md">
-              <img src="/science.png" className="rounded-md" alt="" />
-              <div className="p-3 flex  flex-col gap-2">
-                <p className="text-xs font-semibold">Science</p>
-                <h1 className="text-base font-semibold text-black">
-                  Breakthrough in Quantum Computing Promises New Era
-                </h1>
-                <p className="text-sm text-light-black">
-                  The historic $1.2 trillion infrastructure package aims to
-                  rebuild roads, bridges, and expand broadband access across the
-                  nation.
-                </p>
-                <div className="flex items-center justify-between text-sm text-light-black ">
-                  <p className="flex items-center gap-1">
-                    <CiTimer />5 min read
-                  </p>
-                  <p className="flex items-center gap-1">
-                    <IoMdShareAlt />
-                    2.5k shares
-                  </p>
-                </div>
-              </div>
-            </div>
-          ))}
-        </div>
         <div className="w-[30%]">
           <div className="p-4 bg-white rounded-md">
             <h1 className="text-lg font-semibold text-light-black">
