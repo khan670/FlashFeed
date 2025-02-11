@@ -1,21 +1,24 @@
 "use client";
 import { getTrendingNews } from "@/api-functions/newsApi";
+import { getTodayDate } from "@/utils/dateUtils";
 import { useQuery } from "@tanstack/react-query";
 import React from "react";
 import { CiTimer } from "react-icons/ci";
 import { IoMdShareAlt } from "react-icons/io";
 
 const TrendingNews = () => {
-  const { data, isLoading } = useQuery({
+  const { data, isLoading, error } = useQuery({
     queryKey: ["trending"],
     queryFn: getTrendingNews,
   });
+  console.log(getTodayDate());
   if (isLoading) return <>Loading...</>;
+  if (error) return <>{error.message}</>;
   return (
     <section className="mt-5 p-5">
       <h1 className="text-2xl font-semibold ">Trending Now</h1>
       <div className="grid grid-cols-4 gap-3 mt-5">
-        {data.articles.map((value) => (
+        {data?.articles.slice(0, 4)?.map((value) => (
           <div
             key={value.title}
             className="bg-white rounded-lg overflow-hidden shadow"

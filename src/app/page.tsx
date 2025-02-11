@@ -4,22 +4,22 @@ import LatestNews from "@/components/LatestNews";
 import NewsCard from "@/components/NewsCard";
 import TrendingNews from "@/components/TrendingNews";
 import { useQuery } from "@tanstack/react-query";
-import React from "react";
-import { CiTimer } from "react-icons/ci";
-import { IoMdShareAlt } from "react-icons/io";
+import React, { Suspense } from "react";
+// import { CiTimer } from "react-icons/ci";
+// import { IoMdShareAlt } from "react-icons/io";
 
 const HomePage = () => {
-  const { isLoading, data } = useQuery({
+  const { isLoading, data, error } = useQuery({
     queryKey: ["headline"],
     queryFn: getHeadline,
   });
-  // console.log(data);
   if (isLoading) return "loading....";
+  if (error) return <>{error.message}</>;
   return (
     <>
       <section className="flex items-start gap-3 px-5 py-3">
         <div className="w-[70%] flex flex-col gap-3">
-          {data?.articles.slice(0, 3).map((value, index) => (
+          {data?.articles.slice(0, 4)?.map((value, index) => (
             <div
               key={index}
               style={{
@@ -38,16 +38,18 @@ const HomePage = () => {
           ))}
         </div>
         <div className="w-[30%] flex flex-col gap-3">
-          {data.articles.slice(4, 6).map((value, index) => (
+          {data.articles.slice(4, 7).map((value, index) => (
             <NewsCard key={index + 2} data={value} />
           ))}
         </div>
       </section>
       {/* Trending News */}
-      <TrendingNews />
+      <Suspense fallback={<p>loading...</p>}>
+        <TrendingNews />
+      </Suspense>
       {/* latest News */}
-      <LatestNews />
       <section className="mt-5 flex gap-3 p-5">
+        <LatestNews />
         <div className="w-[30%]">
           <div className="p-4 bg-white rounded-md">
             <h1 className="text-lg font-semibold text-light-black">
