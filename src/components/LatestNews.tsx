@@ -1,11 +1,16 @@
 "use client";
 import { getLatestNews } from "@/api-functions/newsApi";
+import { formatDateTime } from "@/helpers/formateDate";
+import { NewsCardType } from "@/types/newsCardType";
 import { useQuery } from "@tanstack/react-query";
 import React from "react";
 import { CiTimer } from "react-icons/ci";
 import { IoMdShareAlt } from "react-icons/io";
+import { TfiWrite } from "react-icons/tfi";
 
-const LatestNews = () => {
+const LatestNews = ({handleData}:{
+  handleData:(data:object)=>void
+}) => {
   const { data, isLoading, error } = useQuery({
     queryKey: ["latest"],
     queryFn: getLatestNews,
@@ -15,8 +20,8 @@ const LatestNews = () => {
   return (
     <div className="w-[70%]">
       <h1 className="text-2xl font-semibold ">Latest News</h1>
-      {data.articles?.slice(0, 4)?.map((value, index) => (
-        <div key={index} className="flex mt-4 bg-white p-3 rounded-md">
+      {data.articles?.slice(0, 4)?.map((value:NewsCardType, index:number) => (
+        <div key={index} onClick={()=>handleData(value)} className="flex cursor-pointer mt-4 bg-white p-3 rounded-md">
           <img
             src={value.urlToImage}
             width={200}
@@ -32,11 +37,11 @@ const LatestNews = () => {
             <p className="text-sm text-light-black">{value.description}</p>
             <div className="flex items-center justify-between text-sm text-light-black ">
               <p className="flex items-center gap-1">
-                <CiTimer />5 min read
+                <CiTimer />{formatDateTime(value.publishedAt)}
               </p>
               <p className="flex items-center gap-1">
-                <IoMdShareAlt />
-                2.5k shares
+              <TfiWrite />
+                {value.author}
               </p>
             </div>
           </div>

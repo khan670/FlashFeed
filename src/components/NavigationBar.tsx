@@ -1,4 +1,5 @@
 import { NaevigationData } from "@/data/NavigationData";
+import Link from "next/link";
 import React from "react";
 import { IoMdPaper } from "react-icons/io";
 
@@ -14,7 +15,7 @@ const NavigationBar = () => {
             key={index}
             className="text-light-black text-sm capitalize font-semibold  cursor-pointer"
           >
-            {value.name}
+            <Link href={value.link}>{value.name}</Link>
           </li>
         ))}
       </ul>

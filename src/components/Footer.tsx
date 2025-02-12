@@ -23,7 +23,7 @@ const Footer = () => {
           <ul className="flex flex-col gap-2 mt-2 text-[#9CA3AF]">
             {buttonCategory.map((value, index) => (
               <li className="text-sm font-medium" key={index}>
-                {value}
+                {value.name}
               </li>
             ))}
           </ul>

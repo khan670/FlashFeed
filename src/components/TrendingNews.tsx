@@ -1,12 +1,15 @@
 "use client";
 import { getTrendingNews } from "@/api-functions/newsApi";
+import { formatDateTime } from "@/helpers/formateDate";
 import { getTodayDate } from "@/utils/dateUtils";
 import { useQuery } from "@tanstack/react-query";
 import React from "react";
 import { CiTimer } from "react-icons/ci";
 import { IoMdShareAlt } from "react-icons/io";
 
-const TrendingNews = () => {
+const TrendingNews = ({handleData}:{
+  handleData:(data:object)=>void
+}) => {
   const { data, isLoading, error } = useQuery({
     queryKey: ["trending"],
     queryFn: getTrendingNews,
@@ -21,6 +24,7 @@ const TrendingNews = () => {
         {data?.articles.slice(0, 4)?.map((value) => (
           <div
             key={value.title}
+            onClick={()=>handleData(value)}
             className="bg-white rounded-lg overflow-hidden shadow"
           >
             <img src={value.urlToImage} alt="" />
@@ -30,8 +34,8 @@ const TrendingNews = () => {
                 {value.title}
               </h1>
               <div className="flex items-center justify-between text-sm text-light-black ">
-                <p className="flex items-center gap-1">
-                  <CiTimer />5 min read
+                <p className="flex  text-xs items-center gap-1">
+                  <CiTimer />{formatDateTime(value.publishedAt)}
                 </p>
                 <p className="flex items-center gap-1">
                   <IoMdShareAlt />

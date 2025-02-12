@@ -1,8 +1,9 @@
+import { NewsCardType } from "@/types/newsCardType";
 import React from "react";
 
-const NewsCard = ({ data }) => {
+const NewsCard = ({ data }:{data:NewsCardType}) => {
   return (
-    <div className="rounded-md shadow overflow-hidden bg-white">
+    <div className="rounded-md shadow cursor-pointer overflow-hidden bg-white">
       <img src={data.urlToImage} alt="" />
       <div className="p-3">
         <div className="flex items-center gap-10">

@@ -1,9 +1,10 @@
+const HUGGING_FACE_KEY="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"
 export async function query(data: { inputs: string }) {
   const response = await fetch(
     "https://api-inference.huggingface.co/models/facebook/bart-large-cnn",
     {
       headers: {
-        Authorization: `Bearer ${process.env.HUGGING_FACE_KEY}`,
+        Authorization: `Bearer ${HUGGING_FACE_KEY}`,
         "Content-Type": "application/json",
       },
       method: "POST",

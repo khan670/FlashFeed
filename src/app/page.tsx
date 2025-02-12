@@ -1,31 +1,42 @@
 "use client";
 import { getHeadline } from "@/api-functions/newsApi";
+import ArticleModel from "@/components/ArticleModel";
 import LatestNews from "@/components/LatestNews";
 import NewsCard from "@/components/NewsCard";
 import TrendingNews from "@/components/TrendingNews";
+import { NewsCardType } from "@/types/newsCardType";
 import { useQuery } from "@tanstack/react-query";
-import React, { Suspense } from "react";
-// import { CiTimer } from "react-icons/ci";
-// import { IoMdShareAlt } from "react-icons/io";
+import React, { Suspense, useState } from "react";
 
 const HomePage = () => {
   const { isLoading, data, error } = useQuery({
     queryKey: ["headline"],
     queryFn: getHeadline,
   });
+ const [newsData,setNewsData]=useState("");
+ const [isOpen,setIsOpen]=useState(false)
+ function handleData(data){
+  setNewsData(data);
+  setIsOpen(true);
+ }
+ function handleClose(){
+  setIsOpen(false)
+ }
   if (isLoading) return "loading....";
   if (error) return <>{error.message}</>;
+  
   return (
     <>
       <section className="flex items-start gap-3 px-5 py-3">
         <div className="w-[70%] flex flex-col gap-3">
-          {data?.articles.slice(0, 4)?.map((value, index) => (
+          {data?.articles.slice(0, 4)?.map((value:NewsCardType, index:number) => (
             <div
               key={index}
+              onClick={()=>handleData(value)}
               style={{
                 backgroundImage: `linear-gradient(to top, rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0) 50%), url("${value.urlToImage}")`,
               }}
-              className="bg-no-repeat text-white rounded-md flex flex-col justify-end items-start bg-cover p-5 h-80 overflow-hidden"
+              className="bg-no-repeat cursor-pointer text-white rounded-md flex flex-col justify-end items-start bg-cover p-5 h-80 overflow-hidden"
             >
               <button className="text-xs text-gray-50 bg-light-black rounded-lg px-2 py-1">
                 Breaking News
@@ -38,18 +49,20 @@ const HomePage = () => {
           ))}
         </div>
         <div className="w-[30%] flex flex-col gap-3">
-          {data.articles.slice(4, 7).map((value, index) => (
+          {data.articles.slice(4, 7).map((value:NewsCardType, index:number) => (
+            <div onClick={()=>handleData(value)}>
             <NewsCard key={index + 2} data={value} />
+            </div>
           ))}
         </div>
       </section>
       {/* Trending News */}
       <Suspense fallback={<p>loading...</p>}>
-        <TrendingNews />
+        <TrendingNews handleData={handleData} />
       </Suspense>
       {/* latest News */}
       <section className="mt-5 flex gap-3 p-5">
-        <LatestNews />
+        <LatestNews handleData={handleData} />
         <div className="w-[30%]">
           <div className="p-4 bg-white rounded-md">
             <h1 className="text-lg font-semibold text-light-black">
@@ -85,6 +98,7 @@ const HomePage = () => {
           </div>
         </div>
       </section>
+      <ArticleModel data={newsData} open={isOpen} setOpen={handleClose} />
     </>
   );
 };

@@ -9,10 +9,10 @@ export const NaevigationData = [
   },
   {
     name: "News",
-    text: "/news",
+    link: "/news",
   },
   {
     name: "Contact Us",
-    text: "/contect",
+    link: "/contect",
   },
 ];
