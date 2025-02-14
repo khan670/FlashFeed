@@ -1,6 +1,6 @@
-// const API_KEY = "fe392dbef9cf403f9facc275cc738ca8";
+const API_KEY = "fe392dbef9cf403f9facc275cc738ca8";
 // ANOTHER
-const API_KEY = "fbeb05dc683449cd8b11d111098bc7e0";
+// const API_KEY = "fbeb05dc683449cd8b11d111098bc7e0";
 // get the headline
 export const getHeadline = async () => {
   const res = await fetch(
