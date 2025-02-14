@@ -1,46 +1,93 @@
 // import { query } from "@/api-functions/summarization";
 import { AboutData, Commitment } from "@/data/AboutData";
+import { Metadata } from "next";
 import React from "react";
 import { IoIosCheckmarkCircle } from "react-icons/io";
-//api key of the model
-// "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"
+export const metadata: Metadata = {
+  title: "About Us | Headlinr",
+  description:
+    "Learn more about Headlinr, your trusted news source for accurate, unbiased, and timely reporting.",
+  keywords: "about, news, journalism, global news, Headlinr",
+  openGraph: {
+    title: "About Us | Headlinr",
+    description:
+      "Discover Headlinr’s mission, editorial standards, and commitment to delivering quality news.",
+    url: "http://localhost:3000/about",
+    siteName: "Headlinr",
+    images: [
+      {
+        url: "/about-banner.jpg",
+        width: 1200,
+        height: 630,
+        alt: "About Headlinr",
+      },
+    ],
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "About Us | Headlinr",
+    description:
+      "Learn more about Headlinr’s commitment to quality journalism.",
+    images: ["/about-banner.jpg"],
+  },
+};
+
 const AboutPage = async () => {
   return (
     <>
-      <section className="w-[60%] mx-auto mt-5">
-        <h1 className="text-xl text-center font-extrabold">About Headlinr</h1>
+      <section className="sm:w-[60%] w-full sm:mx-auto px-3 mt-5">
+        {/* Main Heading */}
+        <h1 className="text-xl text-center font-extrabold">
+          About Headlinr – AI-Powered News Summarization
+        </h1>
+
+        {/* Introduction */}
         <div className="bg-white p-5 rounded-md mt-5 border border-gray-200">
-          <h1 className="text-lg font-semibold">Your Trusted News Source</h1>
+          <h2 className="text-lg font-semibold">
+            Your AI-Driven News Companion
+          </h2>
           <p className="text-xs text-gray-400 mt-2">
-            Global News is your premier destination for comprehensive news
-            coverage from around the world. We are dedicated to delivering
-            accurate, timely, and unbiased reporting on the stories that matter
-            most to you. <br />
-            <br />
-            Founded with a mission to inform and empower our readers, we bring
-            you breaking news, in-depth analysis, and expert perspectives across
-            a wide spectrum of topics.
+            Welcome to <strong>Headlinr</strong>, the future of digital news
+            consumption. Powered by advanced AI models, we provide{" "}
+            <strong>real-time news summarization</strong> and
+            <strong>text-to-voice conversion</strong>, ensuring you get the
+            latest news in the most accessible way possible. Whether you prefer
+            reading concise summaries or listening on the go,
+            <strong>Headlinr adapts to your needs.</strong>
           </p>
         </div>
-        <div className="grid grid-cols-2 grid-rows-2 gap-5 mt-5">
+
+        {/* Our Features */}
+        <div className="grid sm:grid-cols-2 grid-cols-1 gap-5 mt-5">
           <div className="bg-white p-5 border-gray-200 border rounded-md">
-            <h1 className="text-lg font-semibold">Our Coverage</h1>
+            <h2 className="text-lg font-semibold">AI-Powered Summarization</h2>
+            <p className="text-xs text-gray-400 mt-2">
+              Our AI-based summarization tool condenses lengthy news articles
+              into short, precise summaries, allowing you to stay updated in
+              seconds.
+            </p>
             <ul className="flex gap-3 flex-col mt-3 text-sm text-light-black">
               {AboutData.map((value) => (
-                <li key={value} className="flex gap-2 items-center ">
+                <li key={value} className="flex gap-2 items-center">
                   <IoIosCheckmarkCircle />
                   {value}
                 </li>
               ))}
             </ul>
           </div>
+
           <div className="bg-white p-5 border border-gray-200 rounded-md">
-            <h1 className="text-lg font-semibold">Our Commitment</h1>
+            <h2 className="text-lg font-semibold">Text-to-Voice Conversion</h2>
+            <p className="text-xs text-gray-400 mt-2">
+              Our AI voice technology converts text into natural-sounding
+              speech, allowing you to listen to news articles on the go.
+            </p>
             <ul className="flex gap-3 flex-col mt-3 text-sm text-light-black">
               {Commitment.map((value) => {
                 const Icon = value.icon;
                 return (
-                  <li key={value.text} className="flex gap-2 items-center ">
+                  <li key={value.text} className="flex gap-2 items-center">
                     <Icon />
                     {value.text}
                   </li>
@@ -49,25 +96,27 @@ const AboutPage = async () => {
             </ul>
           </div>
         </div>
+
+        {/* Editorial Standards */}
         <div className="p-5 mt-5 bg-white border border-gray-200 rounded-md">
-          <h1 className="text-lg font-semibold">Editorial Standards</h1>
+          <h2 className="text-lg font-semibold">
+            Reliable & Transparent Journalism
+          </h2>
           <p className="text-xs text-gray-400 mt-2">
-            Our team of experienced journalists and editors follows strict
-            editorial guidelines to ensure the highest quality of reporting. We
-            verify all information through multiple sources and maintain
-            transparency in our reporting process. <br />
-            <br />
-            We believe in the power of well-researched, factual journalism to
-            inform, educate, and empower our readers to make better decisions.
+            Our AI models are trained on trusted sources, ensuring accuracy,
+            credibility, and transparency. Every piece of news is reviewed and
+            refined for authenticity.
           </p>
         </div>
-        <div className="p-5 mt-5 mb-10 text-center  border border-gray-200 bg-gray-300 rounded-md">
-          <h1 className="text-lg text-black text-center font-semibold">
-            Join Our Community
-          </h1>
+
+        {/* Call-to-Action */}
+        <div className="p-5 mt-5 mb-10 text-center border border-gray-200 bg-gray-300 rounded-md">
+          <h2 className="text-lg text-black text-center font-semibold">
+            Join the AI-Powered News Revolution
+          </h2>
           <p className="text-xs text-light-black mt-2 text-center">
-            Stay informed with our daily updates and become part of our growing
-            community of informed readers who value quality journalism.
+            Stay ahead with AI-generated news summaries and voice-based updates.
+            Subscribe now and experience the future of news consumption.
           </p>
           <button className="text-sm text-white bg-black px-2 py-2 mt-3 rounded">
             Subscribe to Our Newsletter

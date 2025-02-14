@@ -1,9 +1,9 @@
-export interface NewsCardType{
-    
-        urlToImage:string;
-        publishedAt:string;
-        title:string;
-        description:string;
-        author:string;
-      
+export interface NewsCardType {
+  content?: string;
+  urlToImage?: string;
+  publishedAt: string;
+  title: string;
+  description: string;
+  author: string;
+  url?: string;
 }

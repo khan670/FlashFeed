@@ -1,10 +1,21 @@
-"use client"
+"use client";
 import { BsArrowLeft, BsArrowRight } from "react-icons/bs";
 
-const Pagination = ({ totalPages, selectedPage, onChangePage }: any) => {
-  const handlePageChange = (page: any) => {
-    if (page >= 1 && page <= totalPages) {
-      onChangePage(page);
+const Pagination = ({
+  totalPages,
+  selectedPage,
+  onChangePage,
+}: {
+  totalPages: number;
+  selectedPage: number;
+  onChangePage: (page: number) => void;
+}) => {
+  const handlePageChange = (page: number | string) => {
+    // Ensure that page is a number
+    const pageNumber = typeof page === "number" ? page : parseInt(page, 10);
+
+    if (pageNumber >= 1 && pageNumber <= totalPages) {
+      onChangePage(pageNumber);
     }
   };
 
@@ -27,19 +38,20 @@ const Pagination = ({ totalPages, selectedPage, onChangePage }: any) => {
         i = i < selectedPage ? selectedPage - 1 : totalPages - 2;
       }
     }
-    return pages.map((page, index) => {
+    return pages.map((page: string | number, index) => {
       const isActive = page === selectedPage;
       const isDots = page === "...";
 
       return (
         <button
-          key={index+54389}
+          key={index + 54389}
           className={`px-2 sm:px-3 py-1 text-sm rounded-md ${
-            isActive ? "bg-cyan-500 text-white" : "bg-white hover:bg-gray-200"
+            isActive
+              ? "bg-light-black text-white"
+              : "bg-white hover:bg-gray-200"
           } ${isDots ? "pointer-events-none" : ""}`}
           disabled={isDots}
-          onClick={() => handlePageChange(page)}
-        >
+          onClick={() => handlePageChange(page)}>
           {page}
         </button>
       );
@@ -47,7 +59,7 @@ const Pagination = ({ totalPages, selectedPage, onChangePage }: any) => {
   };
 
   return (
-    <div className="flex items-center justify-center space-x-2 mt-3">
+    <div className="flex items-center justify-center text-light-black gap-1 mt-3">
       <button
         className={`rounded-md px-2 sm:px-4 py-2 ${
           selectedPage === 1
@@ -55,11 +67,9 @@ const Pagination = ({ totalPages, selectedPage, onChangePage }: any) => {
             : "bg-white hover:bg-gray-200"
         }`}
         disabled={selectedPage === 1}
-        onClick={() => handlePageChange(selectedPage - 1)}
-      >
-        <div className="flex items-center gap-3 text-sm">
-          <BsArrowLeft color="cyan" size="1.3rem" className="font-[700]" />
-          Prev
+        onClick={() => handlePageChange(selectedPage - 1)}>
+        <div className="flex items-center gap-3 sm:text-sm text-xs">
+          <BsArrowLeft className="font-[700] text-sm  text-light-black" />
         </div>
       </button>
       {renderPages()}
@@ -70,10 +80,9 @@ const Pagination = ({ totalPages, selectedPage, onChangePage }: any) => {
             : "bg-white hover:bg-gray-200"
         }`}
         disabled={selectedPage === totalPages}
-        onClick={() => handlePageChange(selectedPage + 1)}
-      >
-        <div className="flex items-center gap-3 text-sm">
-          Next <BsArrowRight color="cyan" size="1.3rem" />
+        onClick={() => handlePageChange(selectedPage + 1)}>
+        <div className="flex items-center gap-3 sm:text-sm text-xs">
+          <BsArrowRight className="text-light-black text-sm" />
         </div>
       </button>
     </div>

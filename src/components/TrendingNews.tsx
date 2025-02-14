@@ -1,45 +1,49 @@
 "use client";
 import { getTrendingNews } from "@/api-functions/newsApi";
 import { formatDateTime } from "@/helpers/formateDate";
+import { NewsCardType } from "@/types/newsCardType";
 import { getTodayDate } from "@/utils/dateUtils";
 import { useQuery } from "@tanstack/react-query";
 import React from "react";
 import { CiTimer } from "react-icons/ci";
-import { IoMdShareAlt } from "react-icons/io";
-
-const TrendingNews = ({handleData}:{
-  handleData:(data:object)=>void
+import SmallLoader from "./SmallLoader";
+const TrendingNews = ({
+  handleData,
+}: {
+  handleData: (data: NewsCardType) => void;
 }) => {
   const { data, isLoading, error } = useQuery({
     queryKey: ["trending"],
     queryFn: getTrendingNews,
   });
   console.log(getTodayDate());
-  if (isLoading) return <>Loading...</>;
+  if (isLoading) return <SmallLoader />;
   if (error) return <>{error.message}</>;
   return (
     <section className="mt-5 p-5">
       <h1 className="text-2xl font-semibold ">Trending Now</h1>
-      <div className="grid grid-cols-4 gap-3 mt-5">
-        {data?.articles.slice(0, 4)?.map((value) => (
+      <div className="grid lg:grid-cols-4 md:grid-cols-3 sm:grid-cols-2 grid-cols-1 gap-3 mt-5">
+        {data?.articles.slice(0, 4)?.map((value: NewsCardType) => (
           <div
             key={value.title}
-            onClick={()=>handleData(value)}
-            className="bg-white rounded-lg overflow-hidden shadow"
-          >
-            <img src={value.urlToImage} alt="" />
+            onClick={() => handleData(value)}
+            className="bg-white rounded-lg cursor-pointer h-fit overflow-hidden shadow">
+            {/*  eslint-disable  */}
+            <img
+              src={value.urlToImage}
+              alt={value.title}
+              width={500}
+              height={300}
+              className="w-full h-4/6 object-cover"
+            />
             <div className="p-3 flex  flex-col gap-2">
-              {/* <p className="text-xs font-semibold">Science</p> */}
-              <h1 className="text-base font-semibold text-black">
+              <h1 className="sm:text-base text-sm font-semibold text-black">
                 {value.title}
               </h1>
-              <div className="flex items-center justify-between text-sm text-light-black ">
+              <div className="flex items-center justify-between sm:text-sm text-xs text-light-black ">
                 <p className="flex  text-xs items-center gap-1">
-                  <CiTimer />{formatDateTime(value.publishedAt)}
-                </p>
-                <p className="flex items-center gap-1">
-                  <IoMdShareAlt />
-                  2.5k shares
+                  <CiTimer />
+                  {formatDateTime(value.publishedAt)}
                 </p>
               </div>
             </div>

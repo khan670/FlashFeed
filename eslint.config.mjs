@@ -8,9 +8,15 @@ const __dirname = dirname(__filename);
 const compat = new FlatCompat({
   baseDirectory: __dirname,
 });
-
 const eslintConfig = [
   ...compat.extends("next/core-web-vitals", "next/typescript"),
+  {
+    rules: {
+      "react/react-in-jsx-scope": "off",
+      "no-console": "off",
+      "jsx-a11y/anchor-is-valid": "off",
+    },
+  },
 ];
 
 export default eslintConfig;

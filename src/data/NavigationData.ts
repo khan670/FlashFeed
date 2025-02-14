@@ -1,7 +1,7 @@
 export const NaevigationData = [
   {
     name: "Home",
-    link: "",
+    link: "/",
   },
   {
     name: "About",
