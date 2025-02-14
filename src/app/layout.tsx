@@ -38,7 +38,7 @@ export const metadata: Metadata = {
     title: "Headlinr | Breaking News & Latest Headlines",
     description:
       "Get the latest breaking news, trending topics, and real-time updates from politics, business, technology, sports, health, and more.",
-    url: "https://headlinr.com/", // Use actual production URL instead of localhost
+    url: "https://headlinr-rayan-khans-projects.vercel.app/", // Use actual production URL instead of localhost
     siteName: "Headlinr",
     images: [
       {
