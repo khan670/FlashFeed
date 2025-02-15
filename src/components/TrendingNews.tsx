@@ -27,7 +27,7 @@ const TrendingNews = ({
           <div
             key={value.title}
             onClick={() => handleData(value)}
-            className="bg-white rounded-lg cursor-pointer h-fit overflow-hidden shadow">
+            className="bg-white self-stretch rounded-lg cursor-pointer   overflow-hidden shadow">
             {/*  eslint-disable  */}
             <img
               src={value.urlToImage}

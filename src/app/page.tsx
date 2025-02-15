@@ -67,7 +67,10 @@ const HomePage = () => {
           {data.articles
             .slice(4, 7)
             .map((value: NewsCardType, index: number) => (
-              <div onClick={() => handleData(value)} key={index + 2}>
+              <div
+                onClick={() => handleData(value)}
+                key={index + 2}
+                className="self-stretch">
                 <NewsCard data={value} />
               </div>
             ))}

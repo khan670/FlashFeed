@@ -77,7 +77,10 @@ const NewsClient = () => {
         <>
           <div className="grid lg:grid-cols-3 md:grid-cols-2 sm:grid-cols-1  gap-5 mt-5">
             {data.articles.map((value: NewsCardType, index: number) => (
-              <div onClick={() => handleClick(value)} key={index + 33}>
+              <div
+                onClick={() => handleClick(value)}
+                key={index + 33}
+                className="self-stretch flex flex-col">
                 <NewsCard data={value} />
               </div>
             ))}

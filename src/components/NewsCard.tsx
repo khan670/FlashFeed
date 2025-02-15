@@ -4,9 +4,15 @@ import React from "react";
 
 const NewsCard = ({ data }: { data: NewsCardType }) => {
   return (
-    <div className="rounded-md shadow cursor-pointer overflow-hidden bg-white">
+    <div className="rounded-md shadow cursor-pointer items-stretch overflow-hidden bg-white">
       {/* eslint-disable  */}
-      <img src={data.urlToImage} alt="" className="w-full h-1/2 object-cover" />
+      <img
+        src={data.urlToImage}
+        alt=""
+        height={300}
+        width={500}
+        className="w-full  "
+      />
       <div className="p-3">
         <div className="flex items-center gap-10">
           <p className="text-xs text-light-black">
